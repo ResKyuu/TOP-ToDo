@@ -1,8 +1,5 @@
 //Import Different Pages here
-// - import { functionName } from './path/to/file.js';
-
-//Global variable for the main content div
-const content = document.getElementById("#content");
+import { loadHomePage } from './pages/homePage.js';
 
 //Function to clear the content of the main content div
 function clearContent() {
@@ -22,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   content.className = "homepage";
 
   //Function Example: Load the Homepage on initial load
-  //loadHomepage();
+  loadHomePage();
 
   /* Button Example: Get (Header-)Button from the DOM and add an event listener to it, which loads the corresponding page 
       const homeButton = document.querySelector(".btn:nth-child(1)");

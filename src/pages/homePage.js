@@ -53,39 +53,44 @@ function loadHomePage() {
         children: [
           //Create the Header for the Sidebar
           createElement("div", {
-            classList: "homeSideBarHeaderContainer",
+            classList: "homeSideBarHeader",
             children: [
               createElement("div", {
-                classList: "homeSideBarHeaderInfo",
+                classList: "homeSideBarHeaderContainer",
                 children: [
-                  createElement("img", {
-                    src: profilePicture,
-                    classList: "homeProfilePicture",
-                    alt: "Profile Picture",
+                  createElement("div", {
+                    classList: "homeSideBarHeaderInfo",
+                    children: [
+                      createElement("img", {
+                        src: profilePicture,
+                        classList: "homeProfilePicture",
+                        alt: "Profile Picture",
+                      }),
+                      createElement("h1", {
+                        textContent: "ResKyuu",
+                        classList: "homeProfileName",
+                      }),
+                      createElement("img", {
+                        src: arrowdown,
+                        classList: "homeArrowDownIcon",
+                        alt: "Arrow Down Icon",
+                      }),
+                    ],
                   }),
-                  createElement("h1", {
-                    textContent: "ResKyuu",
-                    classList: "homeProfileName",
-                  }),
-                  createElement("img", {
-                    src: arrowdown,
-                    classList: "homeArrowDownIcon",
-                    alt: "Arrow Down Icon",
-                  }),
-                ],
-              }),
-              createElement("div", {
-                classList: "homeSideBarHeaderIcons",
-                children: [
-                  createElement("img", {
-                    src: bell,
-                    classList: "homeBellIcon",
-                    alt: "Notification Bell Icon",
-                  }),
-                  createElement("img", {
-                    src: dock,
-                    classList: "homeDockIcon",
-                    alt: "Dock Sidebar Icon",
+                  createElement("div", {
+                    classList: "homeSideBarHeaderIcons",
+                    children: [
+                      createElement("img", {
+                        src: bell,
+                        classList: "homeBellIcon",
+                        alt: "Notification Bell Icon",
+                      }),
+                      createElement("img", {
+                        src: dock,
+                        classList: "homeDockIcon",
+                        alt: "Dock Sidebar Icon",
+                      }),
+                    ],
                   }),
                 ],
               }),

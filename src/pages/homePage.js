@@ -11,26 +11,37 @@ import hashtag from "../svgs/hashtag.svg";
 
 function createSideBarItem(item) {
   return createElement("div", {
-    classList: "sideBarItem",
+    classList: "homeSideBarItem",
     children: [
-      createElement("img", {
-        src: hashtag,
-        classList: "sidebarItemIcon",
-        alt: item.alt,
+      createElement("div", {
+        classList: "homeSidebarItemIconContainer",
+        children: [
+          createElement("img", {
+            src: hashtag,
+            classList: "homeSidebarItemIcon",
+            alt: item.alt,
+          }),
+        ],
       }),
-      createElement("h3", {
-        textContent: item.name,
-        classList: "sidebarItemName",
+      createElement("div", {
+        classList: "homeSidebarItemText",
+        children: [
+          createElement("h3", {
+            textContent: item.name,
+            classList: "homeSidebarItemName",
+          }),
+        ],
       }),
-    ]
+    ],
   });
 }
-
 
 function loadHomePage() {
   const content = document.querySelector("#content");
 
-  const sideBarItems = sideBarData.map((itemData) => createSideBarItem(itemData));
+  const sideBarItems = sideBarData.map((itemData) =>
+    createSideBarItem(itemData)
+  );
 
   const sideBar = createElement("div", {
     id: "sideBar",
@@ -78,10 +89,10 @@ function loadHomePage() {
               }),
             ],
           }),
-          createElement('div', {
+          createElement("div", {
             classList: "homeSideBarItems",
             children: sideBarItems,
-          })
+          }),
         ],
       }),
     ],

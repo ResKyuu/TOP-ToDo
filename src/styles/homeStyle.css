@@ -21,7 +21,7 @@
 }
 
 .mainSideBar {
-  width: 20%;
+  width: 18%;
   height: 100%;
   background-color: #222222de;
   padding: 25px;
@@ -29,7 +29,7 @@
 
 .mainContent {
   background-color: #dadada63;
-  width: 80%;
+  width: 82%;
   height: 100%;
   padding: 25px;
 }
@@ -39,10 +39,12 @@
   align-items: center;
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.404);
-  
+  flex-wrap: wrap;
+
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 20px;
+  border-bottom: 2px solid white;
 }
 
 .homeSideBarHeaderInfo h1 {
@@ -78,3 +80,38 @@ img {
 .homeBellIcon {
   margin-right: 8px;
 }
+
+.homeSideBarItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.404);
+  cursor: pointer;
+}
+
+.homeSideBarItems {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.homeSidebarItemText {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  color: #7e36dbe5;
+  font-size: 1.05rem;
+}
+
+.homeSideBarItem:hover {
+  background-color: rgba(0, 0, 0, 0.604);
+}
+
+.homeSidebarItemIconContainer {
+  display: flex;
+  position: absolute;
+}
+
+

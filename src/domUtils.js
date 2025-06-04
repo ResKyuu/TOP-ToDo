@@ -11,6 +11,8 @@ export function createElement(tag, options = {}) {
       el.textContent = value;
     } else if (key === "src") {
       el.src = value;
+    } else if (key === "href") {
+      el.href = value;
     } else if (key === "id") {
       el.id = value;
     } else if (key === "children" && Array.isArray(value)) {

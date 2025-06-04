@@ -101,6 +101,19 @@ function loadHomePage() {
             classList: "homeSideBarItems",
             children: sideBarItems,
           }),
+          createElement("div", {
+            classList: "homeSideBarFooter",
+            children: [
+              createElement("p", {
+                textContent: "To-Do List, made by"
+              }),
+              createElement("a", {
+                href: "https://github.com/ResKyuu?tab=repositories",
+                textContent: "ResKyuu",
+                classList: "homeFooterLink",
+              }),
+            ],
+          }),
         ],
       }),
     ],

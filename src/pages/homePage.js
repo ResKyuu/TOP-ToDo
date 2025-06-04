@@ -9,6 +9,7 @@ import dock from "../svgs/docksidebar.svg";
 import profilePicture from "../images/profilepicture.jpg";
 import hashtag from "../svgs/hashtag.svg";
 
+//Builds the sidebar items from the sidebarnav.json Data
 function createSideBarItem(item) {
   return createElement("div", {
     classList: "homeSideBarItem",
@@ -50,6 +51,7 @@ function loadHomePage() {
       createElement("div", {
         classList: "sideBarHeader",
         children: [
+          //Create the Header for the Sidebar
           createElement("div", {
             classList: "homeSideBarHeaderContainer",
             children: [
@@ -89,6 +91,7 @@ function loadHomePage() {
               }),
             ],
           }),
+          //Adds the Projects for the Sidebar
           createElement("div", {
             classList: "homeSideBarItems",
             children: sideBarItems,

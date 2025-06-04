@@ -2,6 +2,15 @@
 
 @import url("https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&display=swap");
 
+:root {
+  --primary-color: #934bf1f1;
+  --sidebar-color: #222222fa;
+  --background-color: #dadada63;
+  --sidebar-header-background-color: rgba(0, 0, 0, 0.5);
+  --sidebar-item-background-color: rgba(0, 0, 0, 0.6);
+  --sidebar-maincontent-padding: 30px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -21,35 +30,36 @@
 }
 
 .mainSideBar {
-  width: 18%;
+  width: 19%;
   height: 100%;
-  background-color: #222222de;
-  padding: 25px;
+  background-color: var(--sidebar-color);
+  padding: var(--sidebar-maincontent-padding);
 }
 
 .mainContent {
-  background-color: #dadada63;
-  width: 82%;
+  background-color: var(--background-color);
+  width: 81%;
   height: 100%;
-  padding: 25px;
+  padding: var(--sidebar-maincontent-padding);
 }
 
 .homeSideBarHeaderContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.404);
+  background-color: var(--sidebar-header-background-color);
   flex-wrap: wrap;
 
   padding: 10px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   border-bottom: 2px solid white;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .homeSideBarHeaderInfo h1 {
   font-size: 1.5rem;
-  color: #7e36dbe5;
+  color: var(--primary-color);
   margin-left: 5px;
 }
 
@@ -85,10 +95,15 @@ img {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 7px;
+  padding: 6.5px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.404);
+  background-color: var(--sidebar-item-background-color);
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  transform: scale(1) translateY(0);
+
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
 }
 
 .homeSideBarItems {
@@ -101,17 +116,16 @@ img {
   display: flex;
   flex-grow: 1;
   justify-content: center;
-  color: #7e36dbe5;
+  color: var(--primary-color);
   font-size: 1.05rem;
 }
 
 .homeSideBarItem:hover {
-  background-color: rgba(0, 0, 0, 0.604);
+  background-color: #160927be;
+  transform: scale(1.03) translateY(-2px);
 }
 
 .homeSidebarItemIconContainer {
   display: flex;
   position: absolute;
 }
-
-

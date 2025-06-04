@@ -23,11 +23,12 @@
 .mainSideBar {
   width: 20%;
   height: 100%;
-  background-color: #e0883652;
+  background-color: #222222de;
   padding: 25px;
 }
 
 .mainContent {
+  background-color: #dadada63;
   width: 80%;
   height: 100%;
   padding: 25px;
@@ -37,7 +38,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.404);
   
   padding: 10px;
   border-radius: 10px;
@@ -46,7 +47,7 @@
 
 .homeSideBarHeaderInfo h1 {
   font-size: 1.5rem;
-  color: #fff;
+  color: #7e36dbe5;
   margin-left: 5px;
 }
 
@@ -72,4 +73,8 @@ img {
   border-radius: 50%;
   margin-right: 10px;
   filter: brightness(1) invert(0);
+}
+
+.homeBellIcon {
+  margin-right: 8px;
 }

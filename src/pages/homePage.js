@@ -1,14 +1,36 @@
 import "../styles/homeStyle.css";
 import { createElement } from "../domUtils.js";
+import sideBarData from "../Data/sidebarnav.json";
 
 //svgs & icons
 import arrowdown from "../svgs/arrowdown.svg";
 import bell from "../svgs/bell.svg";
 import dock from "../svgs/docksidebar.svg";
 import profilePicture from "../images/profilepicture.jpg";
+import hashtag from "../svgs/hashtag.svg";
+
+function createSideBarItem(item) {
+  return createElement("div", {
+    classList: "sideBarItem",
+    children: [
+      createElement("img", {
+        src: hashtag,
+        classList: "sidebarItemIcon",
+        alt: item.alt,
+      }),
+      createElement("h3", {
+        textContent: item.name,
+        classList: "sidebarItemName",
+      }),
+    ]
+  });
+}
+
 
 function loadHomePage() {
   const content = document.querySelector("#content");
+
+  const sideBarItems = sideBarData.map((itemData) => createSideBarItem(itemData));
 
   const sideBar = createElement("div", {
     id: "sideBar",
@@ -56,6 +78,10 @@ function loadHomePage() {
               }),
             ],
           }),
+          createElement('div', {
+            classList: "homeSideBarItems",
+            children: sideBarItems,
+          })
         ],
       }),
     ],

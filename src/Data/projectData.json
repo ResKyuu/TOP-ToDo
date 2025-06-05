@@ -1,7 +1,21 @@
 [
   {
-    "name": "Test Project 1",
-    "alt": "Test Project 1 Icon"
+    "name": "Get Started",
+    "alt": "Test Project 1 Icon",
+    "contents": [
+      {
+        "title": "Task List",
+        "description": "This is the first task in the Get Started section."
+      },
+      {
+        "title": "Task List",
+        "description": "This is the second task in the Get Started section."
+      },
+      {
+        "title": "Task List",
+        "description": "This is the third task in the Get Started section."
+      }
+    ]
   },
   {
     "name": "Test Project 2",

@@ -1,6 +1,6 @@
 import "../styles/homeStyle.css";
 import { createElement } from "../domUtils.js";
-import sideBarData from "../Data/sidebarnav.json";
+import sideBarData from "../Data/projectData.json";
 
 //svgs & icons
 import arrowdown from "../svgs/arrowdown.svg";
@@ -49,19 +49,62 @@ function loadHomePage() {
   sideBarItems.forEach((item) => {
     projectNumber++;
     item.id = `project-${projectNumber}`;
+
     item.addEventListener("click", () => {
       // Handle sidebar item click
       console.log(
         `Clicked on: ${item.querySelector(".homeSidebarItemName").textContent}`
       );
-      const homeMainContent = document.querySelector(".homeMainContent");
-      homeMainContent.innerHTML = ""; // Clear previous content
+      const homeMainContent = document.querySelector(".homeMainContentHeader");
+      const displayContents = document.querySelector(".homeMainContentBody");
+      displayContents.innerHTML = ""; // Clear previous content
+      homeMainContent.innerHTML = ""; // Clear previous display content
+
+      // Create Header for the Project and display it when clicked
       homeMainContent.appendChild(
         createElement("h2", {
-          textContent: `You clicked on: ${item.querySelector(".homeSidebarItemName").textContent}`,
+          textContent: `Clicked: ${
+            item.querySelector(".homeSidebarItemName").textContent
+          } | Project ID: ${item.id}`,
           classList: "homeMainContentHeader",
         })
       );
+      // Create Content for the Project and display it when clicked
+      sideBarData.forEach((data) => {
+        if (
+          // Check if the clicked item matches the project name
+          data.name === item.querySelector(".homeSidebarItemName").textContent
+        ) {
+          // Check if contents exist for the project and if yes, display them
+          if (data.contents && Array.isArray(data.contents)) {
+            data.contents.forEach((contentItem) => {
+              displayContents.appendChild(
+                createElement("div", {
+                  classList: "projectTaskItem",
+                  children: [
+                    createElement("h3", {
+                      textContent: contentItem.title,
+                      classList: "projectTaskTitle",
+                    }),
+                    createElement("p", {
+                      textContent: contentItem.description,
+                      classList: "projectTaskDescription",
+                    }),
+                  ],
+                })
+              );
+            });
+          } else {
+            // If no contents are available for the project, display a fallback message
+            displayContents.appendChild(
+              createElement("p", {
+                textContent: "No content available for this project.",
+                classList: "projectNoContent",
+              })
+            );
+          }
+        }
+      });
     });
   });
 
@@ -145,7 +188,22 @@ function loadHomePage() {
     children: [
       createElement("div", {
         classList: "homeMainContent",
-        children: [],
+        children: [
+          createElement("div", {
+            classList: "homeMainContentHeader",
+            children: [],
+          }),
+          createElement("div", {
+            classList: "homeMainContentBody",
+            children: [
+              createElement("p", {
+                textContent:
+                  "Welcome to the Home Page! Click on a project in the sidebar to view details.",
+                classList: "homeMainContentText",
+              }),
+            ],
+          }),
+        ],
       }),
     ],
   });

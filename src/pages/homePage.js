@@ -9,6 +9,8 @@ import dock from "../svgs/docksidebar.svg";
 import profilePicture from "../images/profilepicture.jpg";
 import hashtag from "../svgs/hashtag.svg";
 
+let projectNumber = 0; // Placeholder for project number
+
 //Builds the sidebar items from the sidebarnav.json Data
 function createSideBarItem(item) {
   return createElement("div", {
@@ -43,6 +45,25 @@ function loadHomePage() {
   const sideBarItems = sideBarData.map((itemData) =>
     createSideBarItem(itemData)
   );
+
+  sideBarItems.forEach((item) => {
+    projectNumber++;
+    item.id = `project-${projectNumber}`;
+    item.addEventListener("click", () => {
+      // Handle sidebar item click
+      console.log(
+        `Clicked on: ${item.querySelector(".homeSidebarItemName").textContent}`
+      );
+      const homeMainContent = document.querySelector(".homeMainContent");
+      homeMainContent.innerHTML = ""; // Clear previous content
+      homeMainContent.appendChild(
+        createElement("h2", {
+          textContent: `You clicked on: ${item.querySelector(".homeSidebarItemName").textContent}`,
+          classList: "homeMainContentHeader",
+        })
+      );
+    });
+  });
 
   const sideBar = createElement("div", {
     id: "sideBar",
@@ -105,7 +126,7 @@ function loadHomePage() {
             classList: "homeSideBarFooter",
             children: [
               createElement("p", {
-                textContent: "To-Do List, made by"
+                textContent: "To-Do List, made by",
               }),
               createElement("a", {
                 href: "https://github.com/ResKyuu?tab=repositories",
@@ -121,7 +142,12 @@ function loadHomePage() {
   const mainContent = createElement("div", {
     id: "mainContent",
     classList: "mainContent",
-    children: [],
+    children: [
+      createElement("div", {
+        classList: "homeMainContent",
+        children: [],
+      }),
+    ],
   });
 
   content.appendChild(sideBar);

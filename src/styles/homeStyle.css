@@ -9,6 +9,11 @@
   --sidebar-header-background-color: rgba(0, 0, 0, 0.5);
   --sidebar-item-background-color: rgba(0, 0, 0, 0.6);
   --sidebar-maincontent-padding: 20px;
+  --task-item-completed-color: rgba(27, 184, 21, 0.719);
+  --task-item-pending-color: rgba(255, 165, 0, 0.719);
+  --task-item-overdue-color: rgba(255, 0, 0, 0.719);
+  --task-item-default-color: rgba(255, 255, 255, 0.9);
+
 }
 
 * {
@@ -35,7 +40,6 @@
   height: 100%;
   background-color: var(--sidebar-color);
   padding: var(--sidebar-maincontent-padding);
-
 }
 
 .mainContent {
@@ -150,7 +154,7 @@ img {
   gap: 5px;
   color: rgb(255, 255, 255);
   border-top: 1px solid rgba(255, 255, 255, 0.418);
-  padding: 10px 5px 5px 5px; 
+  padding: 10px 5px 5px 5px;
   margin-top: auto;
 }
 
@@ -159,10 +163,9 @@ a {
   color: var(--primary-color);
 }
 
-
 .homeMainContent {
   padding-top: 10px;
-  width: 100%;
+  width: auto;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -193,6 +196,31 @@ a {
 
 .projectTaskItem h3 {
   color: var(--primary-color);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 10px;
+}
+
+.projectTaskItem {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.050);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-left: 5px solid var(--task-item-default-color);
+}
+
+.projectTaskItem:hover {
+  transform: scale(1.02);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px;
+}
+
+.homeMainContentBody {
+  margin-top: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, 400px));
+  justify-content: space-evenly;
 }

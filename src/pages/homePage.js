@@ -78,21 +78,42 @@ function loadHomePage() {
           // Check if contents exist for the project and if yes, display them
           if (data.contents && Array.isArray(data.contents)) {
             data.contents.forEach((contentItem) => {
-              displayContents.appendChild(
-                createElement("div", {
-                  classList: "projectTaskItem",
-                  children: [
-                    createElement("h3", {
-                      textContent: contentItem.title,
-                      classList: "projectTaskTitle",
-                    }),
-                    createElement("p", {
-                      textContent: contentItem.description,
-                      classList: "projectTaskDescription",
-                    }),
-                  ],
-                })
-              );
+              const newProjectTaskItem = createElement("div", {
+                classList: "projectTaskItem",
+                children: [
+                  createElement("div", {
+                    classList: "projectTaskItemHeader",
+                    children: [
+                      createElement("h2", {
+                        textContent: contentItem.title,
+                        classList: "projectTaskTitle",
+                      }),
+                    ],
+                  }),
+                ],
+              });
+              displayContents.appendChild(newProjectTaskItem);
+              if (contentItem.tasks && Array.isArray(contentItem.tasks)) {
+                  document.querySelector(`.projectTaskItem`);
+                // Loop through each task in the content item and display it
+                contentItem.tasks.forEach((task) => {
+                  newProjectTaskItem.appendChild(
+                    createElement("div", {
+                      classList: "projectTaskDetails",
+                      children: [
+                        createElement("h3", {
+                          textContent: task.title,
+                          classList: "projectTaskTitle",
+                        }),
+                        createElement("p", {
+                          textContent: task.description,
+                          classList: "projectTaskDescription",
+                        }),
+                      ],
+                    })
+                  );
+                });
+              }
             });
           } else {
             // If no contents are available for the project, display a fallback message

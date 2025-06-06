@@ -102,13 +102,23 @@ function loadHomePage() {
                     createElement("div", {
                       classList: "projectTaskDetails",
                       children: [
-                        createElement("h3", {
-                          textContent: task.title,
-                          classList: "projectTaskTitle",
+                        createElement("div", {
+                          classList: "projectTaskHeaderContainer",
+                          children: [
+                            createElement("h3", {
+                              textContent: task.title,
+                              classList: "projectTaskTitle",
+                            }),
+                          ],
                         }),
-                        createElement("p", {
-                          textContent: task.description,
-                          classList: "projectTaskDescription",
+                        createElement("div", {
+                          classList: "projectTaskContentContainer",
+                          children: [
+                            createElement("p", {
+                              textContent: task.description,
+                              classList: "projectTaskDescription",
+                            }),
+                          ],
                         }),
                       ],
                     })

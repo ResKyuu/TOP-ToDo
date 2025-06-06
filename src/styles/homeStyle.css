@@ -198,9 +198,17 @@ a {
   overflow: hidden; 
 }
 
-.homeMainContent h2 {
+.homeMainContentHeader h2 {
   color: var(--primary-color);
   font-size: 1.5rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.418);
+  padding-bottom: 10px;
+}
+
+.projectTaskItemHeader h2 {
+  color: var(--primary-color);
+  font-size: 1.43rem;
   margin-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.418);
   padding-bottom: 10px;
@@ -215,20 +223,20 @@ a {
 
 .projectTaskItem p {
   color: rgb(255, 255, 255);
-  font-size: 1.1rem;
-  margin-bottom: 20px;
+  font-size: 1.03rem;
+  margin-bottom: 15px;
 }
 
 .projectTaskItem h3 {
   color: var(--primary-color);
-  font-size: 1.3rem;
+  font-size: 1.23rem;
   margin-bottom: 10px;
 }
 
 .projectTaskItem {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 350px;
   background-color: rgba(255, 255, 255, 0.05);
   padding: 20px;
   border-radius: 10px;
@@ -243,6 +251,7 @@ a {
 }
 
 .homeMainContentBody {
+  padding: 10px;
   margin-top: 20px;
   width: 100%;
   

@@ -13,7 +13,6 @@
   --task-item-pending-color: rgba(255, 165, 0, 0.719);
   --task-item-overdue-color: rgba(255, 0, 0, 0.719);
   --task-item-default-color: rgba(255, 255, 255, 0.9);
-
 }
 
 * {
@@ -171,6 +170,32 @@ a {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+}
+
+.homeMainContent::-webkit-scrollbar {
+  width: 5px; 
+  height: 5px; 
+}
+
+.homeMainContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.homeMainContent::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color); 
+  border-radius: 10px;
+}
+
+.homeMainContent::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0px;
+  height: 0px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden; 
 }
 
 .homeMainContent h2 {
@@ -204,7 +229,7 @@ a {
   display: flex;
   flex-direction: column;
   width: 400px;
-  background-color: rgba(255, 255, 255, 0.050);
+  background-color: rgba(255, 255, 255, 0.05);
   padding: 20px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
@@ -220,7 +245,23 @@ a {
 .homeMainContentBody {
   margin-top: 20px;
   width: 100%;
+  
   display: grid;
-  grid-template-columns: repeat(3, minmax(300px, 400px));
-  justify-content: space-evenly;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-gap: 20px;
+  align-items: start;
+
+  flex-grow: 1;
+  min-height: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) transparent;
+
+}
+
+.homepage {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

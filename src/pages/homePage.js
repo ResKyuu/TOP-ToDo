@@ -1,6 +1,7 @@
 import "../styles/homeStyle.css";
 import { createElement } from "../domUtils.js";
 import sideBarData from "../Data/projectData.json";
+import { handleMouseDrag } from "../Logic/mousedrag.js";
 
 //svgs & icons
 import arrowdown from "../svgs/arrowdown.svg";
@@ -94,7 +95,7 @@ function loadHomePage() {
               });
               displayContents.appendChild(newProjectTaskItem);
               if (contentItem.tasks && Array.isArray(contentItem.tasks)) {
-                  document.querySelector(`.projectTaskItem`);
+                document.querySelector(`.projectTaskItem`);
                 // Loop through each task in the content item and display it
                 contentItem.tasks.forEach((task) => {
                   newProjectTaskItem.appendChild(
@@ -229,8 +230,10 @@ function loadHomePage() {
     ],
   });
 
+  // Add mouse drag functionality to the main content
   content.appendChild(sideBar);
   content.appendChild(mainContent);
+  handleMouseDrag();
 }
 
 export { loadHomePage };

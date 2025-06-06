@@ -79,7 +79,7 @@ function loadHomePage() {
           // Check if contents exist for the project and if yes, display them
           if (data.contents && Array.isArray(data.contents)) {
             data.contents.forEach((contentItem) => {
-              const newProjectTaskItem = createElement("div", {
+              const newProjectTaskHeader = createElement("div", {
                 classList: "projectTaskItem",
                 children: [
                   createElement("div", {
@@ -91,14 +91,21 @@ function loadHomePage() {
                       }),
                     ],
                   }),
+
                 ],
               });
-              displayContents.appendChild(newProjectTaskItem);
+              displayContents.appendChild(newProjectTaskHeader);
+
+              const newProjectItemContainer = createElement("div", {
+                classList: "projectItemContainer",
+                children: [],
+              });
+              newProjectTaskHeader.appendChild(newProjectItemContainer);
+
               if (contentItem.tasks && Array.isArray(contentItem.tasks)) {
-                document.querySelector(`.projectTaskItem`);
                 // Loop through each task in the content item and display it
                 contentItem.tasks.forEach((task) => {
-                  newProjectTaskItem.appendChild(
+                  newProjectItemContainer.appendChild(
                     createElement("div", {
                       classList: "projectTaskDetails",
                       children: [

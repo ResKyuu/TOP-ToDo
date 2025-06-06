@@ -8,15 +8,39 @@
         "tasks": [
           {
             "title": "Task 1",
-            "description": "This is the first task in the Get Started section."
+            "description": "On Hover show button to delete this task list."
           },
           {
             "title": "Task 2",
-            "description": "This is the second task in the Get Started section."
+            "description": "On Hover show button to delete this task"
           },
           {
             "title": "Task 3",
-            "description": "This is the third task in the Get Started section."
+            "description": "On Hover show button to edit this task"
+          },
+          {
+            "title": "Task 4",
+            "description": "Below last task, show button to add a new task"
+          },
+          {
+            "title": "Task 5",
+            "description": "Next to last task list, show button to add a new task list"
+          },
+          {
+            "title": "Task 6",
+            "description": "Below last project show button to add a new project"
+          },
+          {
+            "title": "Task 7",
+            "description": "On Hover show button to delete this project"
+          },
+          {
+            "title": "Task 8",
+            "description": "On Hover show button to edit this project"
+          },
+          {
+            "title": "Task 9",
+            "description": "Placeholder for a task that has no description"
           }
         ]
       },

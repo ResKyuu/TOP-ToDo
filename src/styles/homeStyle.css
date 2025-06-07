@@ -219,10 +219,21 @@ a {
   margin-bottom: 20px;
 }
 
-.projectTaskItem p {
+.projectTaskContentContainer > p {
   color: rgb(255, 255, 255);
   font-size: 1.03rem;
   margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.projectItemContainer
+  > .projectTaskDetails:last-child
+  .projectTaskContentContainer
+  > p {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .projectTaskItem h3 {
@@ -241,13 +252,7 @@ a {
   max-height: 96.5%;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   border-left: 5px solid var(--task-item-default-color);
-}
-
-.projectTaskItem:hover {
-  transform: scale(1.02);
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px;
 }
 
 .homeMainContentBody {
@@ -304,6 +309,18 @@ a {
   color: var(--primary-color);
   font-size: 1.25rem;
   font-weight: 600;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  transform: scale(1) translateY(0);
+
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+}
+
+.addTaskButton:hover {
+  background-color: #160927be;
+  transform: scale(1.03) translateY(-2px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px;
 }
 
 .projectTaskButtonTargetContainer {
@@ -312,5 +329,6 @@ a {
   justify-content: center;
   flex-direction: column;
   width: 90%;
-  margin: 0 auto 10px;
+  margin: 15px auto;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }

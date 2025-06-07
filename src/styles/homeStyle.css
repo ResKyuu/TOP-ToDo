@@ -208,7 +208,6 @@ a {
 .projectTaskItemHeader h2 {
   color: var(--primary-color);
   font-size: 1.43rem;
-  margin-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.418);
   padding-bottom: 10px;
 }
@@ -239,7 +238,7 @@ a {
   background-color: rgba(255, 255, 255, 0.05);
 
   border-radius: 10px;
-  max-height: 98.5%;
+  max-height: 96.5%;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -281,7 +280,7 @@ a {
 }
 
 .projectItemContainer {
-  padding: 0 20px;
+  padding: 20px 20px 0 20px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -292,4 +291,26 @@ a {
 
 .projectTaskItemHeader {
   padding: 15px 20px 0 20px;
+}
+
+.addTaskButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #0000004d;
+  padding: 5px;
+  border-radius: 10px;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.projectTaskButtonTargetContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto 10px;
 }

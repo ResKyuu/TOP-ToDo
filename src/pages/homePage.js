@@ -13,7 +13,6 @@ import profilePicture from "../images/profilepicture.jpg";
 
 let projectNumber = 0; // Placeholder for project number
 
-
 function loadHomePage() {
   const content = document.querySelector("#content");
 
@@ -57,7 +56,7 @@ function loadHomePage() {
           currentProjectData.contents &&
           Array.isArray(currentProjectData.contents)
         ) {
-          currentProjectData.contents.forEach((contentItem) => {
+          currentProjectData.contents.forEach((contentItem, index) => {
             const tasksAndButtonContainer = createElement("div", {
               classList: "projectItemContainer",
             });
@@ -87,7 +86,9 @@ function loadHomePage() {
             renderTasksaAndAddButton(
               contentItem,
               tasksAndButtonContainer,
-              projectTaskButtonTargetContainer
+              projectTaskButtonTargetContainer,
+              item.id, // Pass the project ID to the render function
+              index
             );
           });
         } else {

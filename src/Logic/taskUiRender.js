@@ -38,8 +38,26 @@ function _renderTasksOnly(contenItem, tasksDisplayContainerElement) {
 function renderTasksaAndAddButton(
   contenItem,
   tasksContainerElement, // Container where tasks will be displayed
-  addTaskButtonContainerElement // Container where the "Add Task" button will be placed
+  addTaskButtonContainerElement, // Container where the "Add Task" button will be placed
+  projectId, // Project ID to be used in localStorage key
+  taskListIndex
 ) {
+  // get LocalStorage key based on projectId, taskListIndex, and contenItem title
+  const localStorageKey = `project_${projectId}_taskListIndex_${taskListIndex}_taskList_${contenItem.title.replace(
+    /\s+/g,
+    "_"
+  )}`;
+
+  // Initialize tasks array if it doesn't exist in contenItem
+  const storedTasks = localStorage.getItem(localStorageKey);
+  if (storedTasks) {
+    try {
+      contenItem.tasks = JSON.parse(storedTasks);
+    } catch (error) {
+      console.error("Error parsing stored tasks:", error);
+    }
+  }
+
   // Initial render of tasks
   _renderTasksOnly(contenItem, tasksContainerElement);
 
@@ -68,6 +86,9 @@ function renderTasksaAndAddButton(
       contenItem.tasks = [];
     }
     contenItem.tasks.push(newTask);
+
+    //Parse the tasks and store them in localStorage
+    localStorage.setItem(localStorageKey, JSON.stringify(contenItem.tasks));
 
     // Only re-render the tasks, not the button or the entire section
     _renderTasksOnly(contenItem, tasksContainerElement);

@@ -43,10 +43,7 @@ function renderTasksaAndAddButton(
   taskListIndex
 ) {
   // get LocalStorage key based on projectId, taskListIndex, and contenItem title
-  const localStorageKey = `project_${projectId}_taskListIndex_${taskListIndex}_taskList_${contenItem.title.replace(
-    /\s+/g,
-    "_"
-  )}`;
+  const localStorageKey = `project_${projectId}_taskListIndex_${taskListIndex}`;
 
   // Initialize tasks array if it doesn't exist in contenItem
   const storedTasks = localStorage.getItem(localStorageKey);

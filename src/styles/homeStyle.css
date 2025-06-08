@@ -332,3 +332,34 @@ a {
   margin: 15px auto;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
+
+.addTaskListTitle {
+  border-bottom: none !important;
+  padding: 0 !important;
+  font-size: 1.25rem !important;
+}
+
+.addTaskListHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px !important;
+}
+
+.homeMainAddTaskList {
+  width: 100% !important;
+  border-left: none !important;
+  cursor: pointer !important;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px !important;
+  transform: scale(1) translateY(0) !important;
+
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out !important;
+}
+
+.homeMainAddTaskList:hover {
+  background-color: #160927be !important;
+  transform: scale(1.03) translateY(-2px) !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px !important;
+}

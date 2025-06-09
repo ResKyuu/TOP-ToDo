@@ -3,8 +3,7 @@ import { createElement } from "../domUtils.js";
 import sideBarDataImport from "../Data/projectData.json"; // Using imported JSON as the default project structure.
 import { handleMouseDrag } from "../Logic/mousedrag.js";
 import { createSideBarItem } from "../Logic/sideBarUiRender.js";
-import { renderProjectContents } from "../Logic/taskListUiRender.js"; // Handles displaying task lists for a project.
-
+import { handleProjectItemClick } from "../Logic/projectInteraction.js";
 // SVG and image assets for the UI.
 import arrowdown from "../svgs/arrowdown.svg";
 import bell from "../svgs/bell.svg";
@@ -57,71 +56,8 @@ function loadHomePage() {
   // Add click event listeners to each sidebar project item.
   sideBarItems.forEach((item) => {
     item.addEventListener("click", () => {
-      console.log(
-        `Clicked on project: ${
-          item.querySelector(".homeSidebarItemName").textContent
-        }`
-      );
-      const homeMainContentHeaderElement = document.querySelector(
-        ".homeMainContentHeader"
-      );
-      const displayContentsElement = document.querySelector(
-        ".homeMainContentBody"
-      );
-
-      // Clear the main content header before displaying new project details.
-      homeMainContentHeaderElement.innerHTML = "";
-
-      const currentProjectName = item.querySelector(
-        ".homeSidebarItemName"
-      ).textContent;
-
-      // Find the corresponding project data object from our current dataset.
-      // This ensures any modifications are made to the data in memory.
-      const currentProjectData = currentSideBarData.find(
-        (p) => p.name === currentProjectName
-      );
-
-      // Update the header with the selected project's name and ID.
-      homeMainContentHeaderElement.appendChild(
-        createElement("h2", {
-          textContent: `Project: ${
-            item.querySelector(".homeSidebarItemName").textContent
-          } | Project ID: ${item.id}`,
-          classList: "homeMainContentHeaderText",
-        })
-      );
-
-      if (currentProjectData) {
-        // If project data is found, render its contents (task lists).
-        renderProjectContents(
-          currentProjectData,
-          displayContentsElement,
-          item.id,
-          currentSideBarData, // Pass the entire dataset for potential modifications (like adding a task list).
-          (updatedFullData) => {
-            // This callback function is triggered when a new task list is added within renderProjectContents.
-            // It saves the entire updated dataset to localStorage to persist changes.
-            console.log(
-              "Project data has been updated. Saving to localStorage:",
-              updatedFullData
-            );
-            localStorage.setItem(
-              LOCAL_STORAGE_KEY,
-              JSON.stringify(updatedFullData)
-            );
-          }
-        );
-      } else {
-        // If no specific content is found for the project, display a message.
-        displayContentsElement.innerHTML = "";
-        displayContentsElement.appendChild(
-          createElement("p", {
-            textContent: "No content available for this project.",
-            classList: "projectNoContent",
-          })
-        );
-      }
+      handleProjectItemClick(item, currentSideBarData, LOCAL_STORAGE_KEY);
+      // Update the active state of sidebar items.
     });
   });
   // Construct the sidebar element with its header, items, and footer.

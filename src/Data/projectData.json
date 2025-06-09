@@ -19,10 +19,6 @@
             "description": "On Hover show button to edit this task"
           },
           {
-            "title": "Task 5",
-            "description": "Next to last task list, show button to add a new task list"
-          },
-          {
             "title": "Task 6",
             "description": "Below last project show button to add a new project"
           },
@@ -158,21 +154,5 @@
   {
     "name": "Test Project 10",
     "alt": "Test Project 10 Icon"
-  },
-  {
-    "name": "Test Project 11",
-    "alt": "Test Project 11 Icon"
-  },
-  {
-    "name": "Test Project 12",
-    "alt": "Test Project 12 Icon"
-  },
-  {
-    "name": "Test Project 13",
-    "alt": "Test Project 13 Icon"
-  },
-  {
-    "name": "Test Project 14",
-    "alt": "Test Project 14 Icon"
   }
 ]

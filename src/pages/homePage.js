@@ -10,6 +10,7 @@ import arrowdown from "../svgs/arrowdown.svg";
 import bell from "../svgs/bell.svg";
 import dock from "../svgs/docksidebar.svg";
 import profilePicture from "../images/profilepicture.jpg";
+import plus from "../svgs/plus.svg";
 
 // Unique key for storing and retrieving application data in localStorage.
 const LOCAL_STORAGE_KEY = "todoAppData";
@@ -57,7 +58,9 @@ function loadHomePage() {
   sideBarItems.forEach((item) => {
     item.addEventListener("click", () => {
       console.log(
-        `Clicked on project: ${item.querySelector(".homeSidebarItemName").textContent}`
+        `Clicked on project: ${
+          item.querySelector(".homeSidebarItemName").textContent
+        }`
       );
       const homeMainContentHeaderElement = document.querySelector(
         ".homeMainContentHeader"
@@ -121,7 +124,6 @@ function loadHomePage() {
       }
     });
   });
-
   // Construct the sidebar element with its header, items, and footer.
   const sideBar = createElement("div", {
     id: "sideBar",
@@ -175,6 +177,10 @@ function loadHomePage() {
               }),
             ],
           }),
+          createElement("div", {
+            classList: ["homeSideBarProjectAdd", "homeSideBarItems"],
+            children: [],
+          }),
           // Container for the list of project items in the sidebar.
           createElement("div", {
             classList: "homeSideBarItems",
@@ -226,7 +232,34 @@ function loadHomePage() {
     ],
   });
 
+  const sideBarItemsContainer = sideBar.querySelector(".homeSideBarProjectAdd");
+  const addProjectButton = createElement("div", {
+    classList: ["homeSideBarItem", "homeAddProjectButton"],
+    children: [
+      createElement("div", {
+        classList: "homeSidebarItemIconContainer",
+        children: [
+          createElement("img", {
+            src: plus,
+            classList: "homeSidebarItemIcon",
+            alt: "Add Project Icon",
+          }),
+        ],
+      }),
+      createElement("div", {
+        classList: "homeSidebarItemText",
+        children: [
+          createElement("h3", {
+            textContent: "Add Project",
+            classList: "homeSidebarItemName",
+          }),
+        ],
+      }),
+    ],
+  });
+
   // Append the constructed sidebar and main content areas to the page.
+  sideBarItemsContainer.appendChild(addProjectButton);
   content.appendChild(sideBar);
   content.appendChild(mainContent);
   // Initialize mouse drag scrolling for the main content body.

@@ -54,7 +54,7 @@ export function renderProjectContents(
       "projectTaskItem",
       "addTaskListButtonCard",
       "homeMainAddTaskList",
-    ], // Corrected: Array of two separate class strings
+    ], 
     children: [
       createElement("div", {
         classList: ["projectTaskItemHeader", "addTaskListHeader"], // Corrected: Use an array for multiple classes

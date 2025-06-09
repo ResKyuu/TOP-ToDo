@@ -7,7 +7,7 @@
   --sidebar-color: #222222fa;
   --background-color: #000000de;
   --sidebar-header-background-color: rgba(0, 0, 0, 0.5);
-  --sidebar-item-background-color: rgba(0, 0, 0, 0.6);
+  --sidebar-item-background-color: rgba(0, 0, 0, 0.35);
   --sidebar-maincontent-padding: 20px;
   --task-item-completed-color: rgba(27, 184, 21, 0.719);
   --task-item-pending-color: rgba(255, 165, 0, 0.719);
@@ -54,7 +54,7 @@
   justify-content: space-between;
   background-color: var(--sidebar-header-background-color);
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
   padding: 10px;
   border-radius: 10px;
   border-bottom: 2px solid white;
@@ -125,7 +125,7 @@ img {
   flex-direction: column;
   gap: 15px;
   scrollbar-width: thin;
-  padding: 5px;
+  margin: 5px;
 }
 
 .homeSidebarItemText {
@@ -362,4 +362,17 @@ a {
   background-color: #160927be !important;
   transform: scale(1.03) translateY(-2px) !important;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px !important;
+}
+
+.homeSideBarProjectAdd {
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.418);
+  padding-bottom: 15px;
+}
+
+.homeAddProjectButton {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  box-shadow: rgba(37, 7, 58, 0.288) 0px 2px 15px,
+    rgba(0, 0, 0, 0) 0px 20px 5px;
+  border: 3px solid rgba(119, 0, 255, 0.089);
 }

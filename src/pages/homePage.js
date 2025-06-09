@@ -114,7 +114,7 @@ function loadHomePage() {
             ],
           }),
           createElement("div", {
-            classList: ["homeSideBarProjectAdd", "homeSideBarItems"],
+            classList: ["homeSideBarProjectAdd"],
             children: [],
           }),
           // Container for the list of project items in the sidebar.
@@ -192,6 +192,34 @@ function loadHomePage() {
         ],
       }),
     ],
+  });
+
+  addProjectButton.addEventListener("click", () => {
+    const projectName = prompt("Enter the new project name:");
+    if (projectName && projectName.trim() !== "") {
+      const newProjectData = {
+        name: projectName.trim(),
+        id: `project-${currentSideBarData.length + 1}`, // Generate a new unique ID.
+        alt: `Icon for Project-${currentSideBarData.length + 1}`,
+        contents: [], // Initialize with an empty task list.
+      };
+
+      currentSideBarData.push(newProjectData);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentSideBarData));
+
+      const newProjectItem = createSideBarItem(newProjectData);
+      newProjectItem.id = newProjectData.id; // Set the ID for the new project item.
+
+      newProjectItem.addEventListener("click", () => {
+        handleProjectItemClick(newProjectItem, currentSideBarData, LOCAL_STORAGE_KEY);
+      });   
+
+      const sideBarItemsContainer = sideBar.querySelector(".homeSideBarItems");
+      sideBarItemsContainer.appendChild(newProjectItem);
+      alert("Project added successfully!");
+    } else if (projectName !== null) {
+      alert("Project name cannot be empty.");
+    }
   });
 
   // Append the constructed sidebar and main content areas to the page.

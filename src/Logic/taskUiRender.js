@@ -1,35 +1,70 @@
 import { createElement } from "../domUtils.js";
+import trashIcon from "../svgs/trash.svg"; // Importing the trash icon for task deletion
 
-function _renderTasksOnly(contenItem, tasksDisplayContainerElement) {
+function _renderTasksOnly(contenItem, tasksDisplayContainerElement, localStorageKey) {
   tasksDisplayContainerElement.innerHTML = ""; // Clear previous tasks
 
   if (contenItem.tasks && Array.isArray(contenItem.tasks)) {
-    contenItem.tasks.forEach((task) => {
-      tasksDisplayContainerElement.appendChild(
-        createElement("div", {
-          classList: "projectTaskDetails",
-          children: [
-            createElement("div", {
-              classList: "projectTaskHeaderContainer",
-              children: [
-                createElement("h3", {
-                  textContent: task.title,
-                  classList: "projectTaskTitle",
-                }),
-              ],
-            }),
-            createElement("div", {
-              classList: "projectTaskContentContainer",
-              children: [
-                createElement("p", {
-                  textContent: task.description,
-                  classList: "projectTaskDescription",
-                }),
-              ],
-            }),
-          ],
-        })
-      );
+    contenItem.tasks.forEach((task, taskSpecificIndex) => {
+      const deleteIconEl = createElement("img", {
+        src: trashIcon,
+        classList: "deleteTaskIcon",
+        alt: "Delete Task Icon",
+        attributes: { "data-task-index": taskSpecificIndex }, // Store the index for deletion
+      });
+
+      const taskElement = createElement("div", {
+        classList: "projectTaskDetails",
+        children: [
+          createElement("div", {
+            classList: "projectTaskHeaderContainer",
+            children: [
+              createElement("div", {
+                classList: "projectTaskHeaderTextContainer",
+                children: [
+                  createElement("h3", {
+                    textContent: task.title,
+                    classList: "projectTaskTitle",
+                  }), // Add the delete icon to the header
+                ],
+              }),
+              createElement("div", {
+                classList: "projectTaskHeaderIconContainer",
+                children: [deleteIconEl],
+              }),
+            ],
+          }),
+          createElement("div", {
+            classList: "projectTaskContentContainer",
+            children: [
+              createElement("p", {
+                textContent: task.description,
+                classList: "projectTaskDescription",
+              }),
+            ],
+          }),
+        ],
+      });
+
+      deleteIconEl.addEventListener("click", (event) => {
+        event.stopPropagation(); // Prevent the click from bubbling up to the task element
+        const taskIndexToDelete = parseInt(
+          event.target.getAttribute("data-task-index")
+        );
+
+        if (
+          confirm(`Are you sure you want to delete the task: "${task.title}"?`)
+        ) {
+          contenItem.tasks.splice(taskIndexToDelete, 1); // Remove the task from the array
+          localStorage.setItem(
+            localStorageKey,
+            JSON.stringify(contenItem.tasks)
+          );
+          _renderTasksOnly(contenItem, tasksDisplayContainerElement); // Re-render the tasks
+        }
+      });
+
+      tasksDisplayContainerElement.appendChild(taskElement);
     });
   }
 }
@@ -56,7 +91,7 @@ function renderTasksaAndAddButton(
   }
 
   // Initial render of tasks
-  _renderTasksOnly(contenItem, tasksContainerElement);
+  _renderTasksOnly(contenItem, tasksContainerElement, localStorageKey);
 
   // Clear the button container before adding the button to ensure only one instance
   addTaskButtonContainerElement.innerHTML = "";

@@ -19,10 +19,6 @@
             "description": "On Hover show button to edit this task"
           },
           {
-            "title": "Task 6",
-            "description": "Below last project show button to add a new project"
-          },
-          {
             "title": "Task 7",
             "description": "On Hover show button to delete this project"
           },

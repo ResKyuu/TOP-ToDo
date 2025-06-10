@@ -43,7 +43,7 @@ export function renderProjectContents(
         tasksAndButtonContainer,
         projectTaskButtonTargetContainer,
         projectId,
-        index
+        index 
       );
     });
   }

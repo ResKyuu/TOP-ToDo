@@ -4,6 +4,7 @@
     "alt": "Test Project 1 Icon",
     "contents": [
       {
+        "id": "tl-getstarted-1",
         "title": "Task List",
         "tasks": [
           {
@@ -33,6 +34,7 @@
         ]
       },
       {
+        "id": "tl-getstarted-2",
         "title": "Task List",
         "tasks": [
           {
@@ -46,6 +48,7 @@
         ]
       },
       {
+        "id": "tl-getstarted-3",
         "title": "Task List",
         "tasks": [
           {
@@ -63,6 +66,7 @@
         ]
       },
       {
+        "id": "tl-getstarted-4",
         "title": "Task List",
         "tasks": [
           {
@@ -80,6 +84,7 @@
         ]
       },
       {
+        "id": "tl-getstarted-5",
         "title": "Task List",
         "tasks": [
           {
@@ -97,6 +102,7 @@
         ]
       },
       {
+        "id": "tl-getstarted-6",
         "title": "Task List",
         "tasks": [
           {

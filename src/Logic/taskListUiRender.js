@@ -1,6 +1,7 @@
 import { createElement } from "../domUtils.js";
 import { renderTasksaAndAddButton } from "./taskUiRender.js"; // Assuming taskUiRender.js is in the same Logic folder
 import plus from "../svgs/plus.svg"; // Importing the plus icon for the "Add Task List" button
+import trashIcon from "../svgs/trash.svg"; // Importing the trash icon for task deletion
 
 // Function to render project contents including task lists and the "Add Task List" button
 export function renderProjectContents(
@@ -13,7 +14,24 @@ export function renderProjectContents(
   displayContainer.innerHTML = ""; // Clear previous content
 
   if (projectData.contents && Array.isArray(projectData.contents)) {
-    projectData.contents.forEach((contentItem, index) => {
+    projectData.contents.forEach((contentItem) => {
+      // 'index' is no longer primarily used for deletion
+      const deleteIconEl = createElement("img", {
+        src: trashIcon,
+        classList: ["deleteTaskListIcon", "deleteTaskIcon"],
+        alt: "Delete Task Icon",
+      });
+
+      // Ensure contentItem has an ID. This is crucial.
+      if (!contentItem.id) {
+        console.error("Task list item is missing an ID:", contentItem.title);
+        // Fallback or assign temporary ID if necessary, but data should be consistent
+        contentItem.id = `tl-missing-${Date.now()}-${Math.random()
+          .toString(36)
+          .substr(2, 9)}`;
+      }
+      const contentItemId = contentItem.id; // Capture the ID
+
       const tasksAndButtonContainer = createElement("div", {
         classList: "projectItemContainer",
       });
@@ -27,9 +45,18 @@ export function renderProjectContents(
           createElement("div", {
             classList: "projectTaskItemHeader",
             children: [
-              createElement("h2", {
-                textContent: contentItem.title,
-                classList: "projectTaskTitle",
+              createElement("div", {
+                classList: "projectTaskItemHeaderTextContainer",
+                children: [
+                  createElement("h2", {
+                    textContent: contentItem.title,
+                    classList: "projectTaskTitle",
+                  }),
+                ],
+              }),
+              createElement("div", {
+                classList: "projectTaskItemHeaderIconContainer",
+                children: [deleteIconEl],
               }),
             ],
           }),
@@ -38,12 +65,47 @@ export function renderProjectContents(
         ],
       });
       displayContainer.appendChild(taskListElement);
+      deleteIconEl.addEventListener("click", () => {
+        if (
+          confirm(
+            `Are you sure you want to delete the tasklist: "${contentItem.title}"?`
+          )
+        ) {
+          const indexToDelete = projectData.contents.findIndex(
+            (ci) => ci.id === contentItemId
+          ); // Find by ID
+          if (indexToDelete !== -1) {
+            projectData.contents.splice(indexToDelete, 1);
+          } else {
+            console.warn(
+              "Could not find task list to delete by ID:",
+              contentItemId,
+              "It might have already been deleted."
+            );
+          }
+
+          // Call the callback to notify that data has changed (for potential saving)
+          if (onTaskListAdded) {
+            onTaskListAdded(fullSideBarData);
+          }
+
+          // Re-render the project contents to update the UI
+          renderProjectContents(
+            projectData,
+            displayContainer,
+            projectId,
+            fullSideBarData,
+            onTaskListAdded
+          );
+        }
+      });
+
       renderTasksaAndAddButton(
         contentItem,
         tasksAndButtonContainer,
         projectTaskButtonTargetContainer,
         projectId,
-        index 
+        contentItem.id // Pass task list ID instead of index for task key generation
       );
     });
   }
@@ -54,10 +116,10 @@ export function renderProjectContents(
       "projectTaskItem",
       "addTaskListButtonCard",
       "homeMainAddTaskList",
-    ], 
+    ],
     children: [
       createElement("div", {
-        classList: ["projectTaskItemHeader", "addTaskListHeader"], // Corrected: Use an array for multiple classes
+        classList: ["projectTaskItemHeader", "addTaskListHeader"],
         children: [
           createElement("img", {
             src: plus,
@@ -66,7 +128,7 @@ export function renderProjectContents(
           }),
           createElement("h2", {
             textContent: "Add New Task List",
-            classList: ["projectTaskTitle", "addTaskListTitle"], // Corrected: Use an array for multiple classes
+            classList: ["projectTaskTitle", "addTaskListTitle"],
           }),
         ],
       }),
@@ -80,6 +142,9 @@ export function renderProjectContents(
         projectData.contents = [];
       }
       const newContentItem = {
+        id: `tl-${projectId}-${Date.now()}-${Math.random()
+          .toString(36)
+          .substr(2, 9)}`, // Generate a more unique ID
         title: newTaskListTitle.trim(),
         tasks: [],
       };

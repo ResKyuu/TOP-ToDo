@@ -1,7 +1,11 @@
 import { createElement } from "../domUtils.js";
 import trashIcon from "../svgs/trash.svg"; // Importing the trash icon for task deletion
 
-function _renderTasksOnly(contenItem, tasksDisplayContainerElement, localStorageKey) {
+function _renderTasksOnly(
+  contenItem,
+  tasksDisplayContainerElement,
+  localStorageKey
+) {
   tasksDisplayContainerElement.innerHTML = ""; // Clear previous tasks
 
   if (contenItem.tasks && Array.isArray(contenItem.tasks)) {
@@ -60,7 +64,11 @@ function _renderTasksOnly(contenItem, tasksDisplayContainerElement, localStorage
             localStorageKey,
             JSON.stringify(contenItem.tasks)
           );
-          _renderTasksOnly(contenItem, tasksDisplayContainerElement); // Re-render the tasks
+          _renderTasksOnly(
+            contenItem,
+            tasksDisplayContainerElement,
+            localStorageKey
+          ); // Re-render the tasks
         }
       });
 
@@ -71,22 +79,53 @@ function _renderTasksOnly(contenItem, tasksDisplayContainerElement, localStorage
 
 // Modified function to set up tasks and the "Add Task" button
 function renderTasksaAndAddButton(
-  contenItem,
-  tasksContainerElement, // Container where tasks will be displayed
-  addTaskButtonContainerElement, // Container where the "Add Task" button will be placed
-  projectId, // Project ID to be used in localStorage key
-  taskListIndex
+  contenItem, // This is the task list object, should have an .id property
+  tasksContainerElement,
+  addTaskButtonContainerElement,
+  projectId, // Project ID
+  taskListId // Changed from taskListIndex to taskListId
 ) {
-  // get LocalStorage key based on projectId, taskListIndex, and contenItem title
-  const localStorageKey = `project_${projectId}_taskListIndex_${taskListIndex}`;
+  if (!taskListId) {
+    console.error(
+      "CRITICAL: taskListId is missing in renderTasksaAndAddButton for task list titled:",
+      contenItem.title
+    );
+    // This indicates a problem in how renderTasksaAndAddButton was called from renderProjectContents
+    alert(
+      `Error: Task list "${contenItem.title}" is missing an ID for task storage. Tasks may not save/load correctly.`
+    );
+    // Use a placeholder to prevent immediate crash, but this needs fixing at the call site.
+    taskListId = `error-missing-id-${Date.now()}`;
+  }
+  // localStorage key for tasks now uses the task list's unique ID
+  const localStorageKey = `project_${projectId}_taskListId_${taskListId}_tasks`;
 
-  // Initialize tasks array if it doesn't exist in contenItem
   const storedTasks = localStorage.getItem(localStorageKey);
   if (storedTasks) {
     try {
-      contenItem.tasks = JSON.parse(storedTasks);
+      const parsedTasks = JSON.parse(storedTasks);
+      if (Array.isArray(parsedTasks)) {
+        contenItem.tasks = parsedTasks;
+      } else {
+        console.warn(
+          `Stored tasks for ${localStorageKey} is not an array. Initializing as empty.`
+        );
+        contenItem.tasks = []; // Initialize if format is wrong
+      }
     } catch (error) {
-      console.error("Error parsing stored tasks:", error);
+      console.error(
+        `Error parsing stored tasks for ${localStorageKey}:`,
+        error
+      );
+      contenItem.tasks = []; // Fallback on parsing error
+    }
+  } else {
+    // If no stored tasks, ensure contenItem.tasks is initialized if not already (e.g. from projectData.json)
+    if (!Array.isArray(contenItem.tasks)) {
+      console.warn(
+        `contenItem.tasks for ${contenItem.title} (list index ${taskListId}) not an array and not in localStorage. Initializing as empty.`
+      );
+      contenItem.tasks = [];
     }
   }
 
@@ -123,7 +162,7 @@ function renderTasksaAndAddButton(
     localStorage.setItem(localStorageKey, JSON.stringify(contenItem.tasks));
 
     // Only re-render the tasks, not the button or the entire section
-    _renderTasksOnly(contenItem, tasksContainerElement);
+    _renderTasksOnly(contenItem, tasksContainerElement, localStorageKey);
     alert("Task added successfully!");
   });
 

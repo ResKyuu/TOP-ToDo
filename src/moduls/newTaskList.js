@@ -20,6 +20,11 @@ export function showNewTaskListModal() {
       placeholder: "Task List Name",
       classList: "modalInput",
     });
+    // Validation message element
+    const validationMsg = createElement("div", {
+      classList: "modalValidationMsg",
+      textContent: "",
+    });
     const addButton = createElement("button", {
       textContent: "Add",
       classList: "modalAddButton",
@@ -31,6 +36,7 @@ export function showNewTaskListModal() {
 
     modal.appendChild(title);
     modal.appendChild(input);
+    modal.appendChild(validationMsg);
     modal.appendChild(addButton);
     modal.appendChild(cancelButton);
     overlay.appendChild(modal);
@@ -50,6 +56,12 @@ export function showNewTaskListModal() {
       if (input.value.trim() !== "") {
         cleanup();
         resolve(input.value.trim());
+      } else {
+        validationMsg.textContent = "Task List Name cannot be empty.";
+        validationMsg.style.color = "red";
+        setTimeout(() => {
+          validationMsg.textContent = "";
+        }, 3000);
       }
     });
 

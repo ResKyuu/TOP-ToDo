@@ -1,5 +1,6 @@
 import { createElement } from "../domUtils.js";
 import trashIcon from "../svgs/trash.svg"; // Importing the trash icon for task deletion
+import { showNewTaskModal } from "../moduls/newTask.js"; // Importing the modal for adding new tasks
 
 function _renderTasksOnly(
   contenItem,
@@ -79,7 +80,7 @@ function _renderTasksOnly(
 
 // Modified function to set up tasks and the "Add Task" button
 function renderTasksaAndAddButton(
-  contenItem, 
+  contenItem,
   tasksContainerElement,
   addTaskButtonContainerElement,
   projectId, // Project ID
@@ -140,30 +141,25 @@ function renderTasksaAndAddButton(
     classList: "addTaskButton",
   });
 
-  addTaskButton.addEventListener("click", () => {
-    const taskTitle = prompt("Enter task title:");
-    if (taskTitle === null || taskTitle.trim() === "") {
-      alert("Task title cannot be empty.");
+  addTaskButton.addEventListener("click", async () => {
+    try {
+      const { title, description } = await showNewTaskModal();
+      const newTask = {
+        title,
+        description,
+      };
+
+      if (!Array.isArray(contenItem.tasks)) {
+        contenItem.tasks = [];
+      }
+      contenItem.tasks.push(newTask);
+
+      localStorage.setItem(localStorageKey, JSON.stringify(contenItem.tasks));
+      _renderTasksOnly(contenItem, tasksContainerElement, localStorageKey);
+    } catch (error) {
+      console.error("Adding new Task Process was canceled", error);
       return;
     }
-    const taskDescription = prompt("Enter new task description (optional):");
-
-    const newTask = {
-      title: taskTitle.trim(),
-      description: taskDescription ? taskDescription.trim() : "",
-    };
-
-    if (!Array.isArray(contenItem.tasks)) {
-      contenItem.tasks = [];
-    }
-    contenItem.tasks.push(newTask);
-
-    //Parse the tasks and store them in localStorage
-    localStorage.setItem(localStorageKey, JSON.stringify(contenItem.tasks));
-
-    // Only re-render the tasks, not the button or the entire section
-    _renderTasksOnly(contenItem, tasksContainerElement, localStorageKey);
-    alert("Task added successfully!");
   });
 
   addTaskButtonContainerElement.appendChild(addTaskButton);

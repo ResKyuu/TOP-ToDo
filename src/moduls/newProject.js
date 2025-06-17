@@ -20,6 +20,11 @@ export function showNewProjectModal() {
       placeholder: "Project Name",
       classList: "modalInput",
     });
+    // Validation message element
+    const validationMsg = createElement("div", {
+      classList: "modalValidationMsg",
+      textContent: "",
+    });
     const addButton = createElement("button", {
       textContent: "Add",
       classList: "modalAddButton",
@@ -31,6 +36,7 @@ export function showNewProjectModal() {
 
     modal.appendChild(title);
     modal.appendChild(input);
+    modal.appendChild(validationMsg); // Add validation message here
     modal.appendChild(addButton);
     modal.appendChild(cancelButton);
     overlay.appendChild(modal);
@@ -50,6 +56,12 @@ export function showNewProjectModal() {
       if (input.value.trim() !== "") {
         cleanup();
         resolve(input.value.trim());
+      } else {
+        validationMsg.textContent = "Project Name cannot be empty.";
+        validationMsg.style.color = "red";
+        setTimeout(() => {
+          validationMsg.textContent = "";
+        }, 3000);
       }
     });
 

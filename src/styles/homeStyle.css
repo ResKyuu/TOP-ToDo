@@ -480,7 +480,7 @@ a {
   color: #fff;
   border-radius: 6px;
   font-size: 1rem;
-  margin-bottom: 1rem;
+
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px;
 }
@@ -529,4 +529,39 @@ a {
   color: var(--primary-color);
   font-size: 1.5rem;
   margin-bottom: 10px;
+}
+
+.modalValidationMsg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.2em;
+  font-size: 0.95em;
+}
+
+.modalDescriptionInput {
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  resize: none;
+
+  width: 100%;
+  min-height: 70px;
+  max-height: 200px;
+  padding: 0.75rem 1rem;
+  background: #23272f;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.modalDescriptionInput:focus {
+  background: #2c313a;
+  box-shadow: 0 0 0;
 }

@@ -27,11 +27,11 @@ export function showNewTaskListModal() {
     });
     const addButton = createElement("button", {
       textContent: "Add",
-      classList: "modalAddButton",
+      classList: ["modalAddButton", "modalConfirmButton"],
     });
     const cancelButton = createElement("button", {
       textContent: "Cancel",
-      classList: "modalCancelButton",
+      classList: ["modalCancelButton", "modalCancelButtonImportant"],
     });
 
     modal.appendChild(title);

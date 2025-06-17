@@ -1,6 +1,6 @@
 import { createElement } from "../domUtils.js";
 import trashIcon from "../svgs/trash.svg"; // Importing the trash icon for task deletion
-import { showNewTaskModal } from "../moduls/newTask.js"; // Importing the modal for adding new tasks
+import { showNewTaskModal } from "../modals/newTask.js"; // Importing the modal for adding new tasks
 
 function _renderTasksOnly(
   contenItem,
@@ -57,20 +57,13 @@ function _renderTasksOnly(
           event.target.getAttribute("data-task-index")
         );
 
-        if (
-          confirm(`Are you sure you want to delete the task: "${task.title}"?`)
-        ) {
-          contenItem.tasks.splice(taskIndexToDelete, 1); // Remove the task from the array
-          localStorage.setItem(
-            localStorageKey,
-            JSON.stringify(contenItem.tasks)
-          );
-          _renderTasksOnly(
-            contenItem,
-            tasksDisplayContainerElement,
-            localStorageKey
-          ); // Re-render the tasks
-        }
+        contenItem.tasks.splice(taskIndexToDelete, 1); // Remove the task from the array
+        localStorage.setItem(localStorageKey, JSON.stringify(contenItem.tasks));
+        _renderTasksOnly(
+          contenItem,
+          tasksDisplayContainerElement,
+          localStorageKey
+        ); // Re-render the tasks
       });
 
       tasksDisplayContainerElement.appendChild(taskElement);

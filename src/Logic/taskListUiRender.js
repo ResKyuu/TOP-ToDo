@@ -1,10 +1,10 @@
 import { createElement } from "../domUtils.js";
-import { renderTasksaAndAddButton } from "./taskUiRender.js"; // Assuming taskUiRender.js is in the same Logic folder
-import { showNewTaskListModal } from "../moduls/newTaskList.js"; // Importing the new task list title from the modal
-import plus from "../svgs/plus.svg"; // Importing the plus icon for the "Add Task List" button
-import trashIcon from "../svgs/trash.svg"; // Importing the trash icon for task deletion
+import { renderTasksaAndAddButton } from "./taskUiRender.js";
+import { showNewTaskListModal } from "../modals/newTaskList.js";
+import { showDeleteTaskListModal } from "../modals/deleteTaskList.js";
+import plus from "../svgs/plus.svg";
+import trashIcon from "../svgs/trash.svg";
 
-// Function to render project contents including task lists and the "Add Task List" button
 export function renderProjectContents(
   projectData,
   displayContainer,
@@ -16,22 +16,19 @@ export function renderProjectContents(
 
   if (projectData.contents && Array.isArray(projectData.contents)) {
     projectData.contents.forEach((contentItem) => {
-      // 'index' is no longer primarily used for deletion
       const deleteIconEl = createElement("img", {
         src: trashIcon,
         classList: ["deleteTaskListIcon", "deleteTaskIcon"],
         alt: "Delete Task Icon",
       });
 
-      // Ensure contentItem has an ID. This is crucial.
       if (!contentItem.id) {
         console.error("Task list item is missing an ID:", contentItem.title);
-        // Fallback or assign temporary ID if necessary, but data should be consistent
         contentItem.id = `tl-missing-${Date.now()}-${Math.random()
           .toString(36)
           .substr(2, 9)}`;
       }
-      const contentItemId = contentItem.id; // Capture the ID
+      const contentItemId = contentItem.id;
 
       const tasksAndButtonContainer = createElement("div", {
         classList: "projectItemContainer",
@@ -66,38 +63,40 @@ export function renderProjectContents(
         ],
       });
       displayContainer.appendChild(taskListElement);
-      deleteIconEl.addEventListener("click", () => {
-        if (
-          confirm(
-            `Are you sure you want to delete the tasklist: "${contentItem.title}"?`
-          )
-        ) {
-          const indexToDelete = projectData.contents.findIndex(
-            (ci) => ci.id === contentItemId
-          ); // Find by ID
-          if (indexToDelete !== -1) {
-            projectData.contents.splice(indexToDelete, 1);
-          } else {
-            console.warn(
-              "Could not find task list to delete by ID:",
-              contentItemId,
-              "It might have already been deleted."
+
+      deleteIconEl.addEventListener("click", async () => {
+        try {
+          const confirmed = await showDeleteTaskListModal(contentItem.title);
+          if (confirmed) {
+            const indexToDelete = projectData.contents.findIndex(
+              (ci) => ci.id === contentItemId
             );
-          }
+            if (indexToDelete !== -1) {
+              projectData.contents.splice(indexToDelete, 1);
+            } else {
+              console.warn(
+                "Could not find task list to delete by ID:",
+                contentItemId,
+                "It might have already been deleted."
+              );
+            }
 
-          // Call the callback to notify that data has changed (for potential saving)
-          if (onTaskListAdded) {
-            onTaskListAdded(fullSideBarData);
-          }
+            if (onTaskListAdded) {
+              onTaskListAdded(fullSideBarData);
+            }
 
-          // Re-render the project contents to update the UI
-          renderProjectContents(
-            projectData,
-            displayContainer,
-            projectId,
-            fullSideBarData,
-            onTaskListAdded
-          );
+            renderProjectContents(
+              projectData,
+              displayContainer,
+              projectId,
+              fullSideBarData,
+              onTaskListAdded
+            );
+          } else {
+            console.log("Task List deletion was canceled.");
+          }
+        } catch (err) {
+          console.log("Task List deletion was canceled.");
         }
       });
 
@@ -106,12 +105,11 @@ export function renderProjectContents(
         tasksAndButtonContainer,
         projectTaskButtonTargetContainer,
         projectId,
-        contentItem.id // Pass task list ID instead of index for task key generation
+        contentItem.id
       );
     });
   }
 
-  // Create and add the "Add New Task List" button/card
   const addTaskListCard = createElement("div", {
     classList: [
       "projectTaskItem",
@@ -146,13 +144,12 @@ export function renderProjectContents(
         const newContentItem = {
           id: `tl-${projectId}-${Date.now()}-${Math.random()
             .toString(36)
-            .substr(2, 9)}`, // Generate a more unique ID
+            .substr(2, 9)}`,
           title: newTaskListTitle.trim(),
           tasks: [],
         };
         projectData.contents.push(newContentItem);
 
-        // Call the callback to notify that data has changed (for potential saving)
         if (onTaskListAdded) {
           onTaskListAdded(fullSideBarData);
         }

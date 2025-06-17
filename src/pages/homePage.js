@@ -5,7 +5,7 @@ import { handleMouseDrag } from "../Logic/mousedrag.js";
 import { createSideBarItem } from "../Logic/sideBarUiRender.js";
 import { handleProjectItemClick } from "../Logic/projectInteraction.js";
 import { deleteProject } from "../Logic/sideBarProjectDel.js"; // Importing the delete function for project items.
-import { showNewProjectModal } from "../moduls/newProject.js";
+import { showNewProjectModal } from "../modals/newProject.js";
 
 // SVG and image assets for the UI.
 import arrowdown from "../svgs/arrowdown.svg";

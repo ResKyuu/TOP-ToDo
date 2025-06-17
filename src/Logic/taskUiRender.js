@@ -79,7 +79,7 @@ function _renderTasksOnly(
 
 // Modified function to set up tasks and the "Add Task" button
 function renderTasksaAndAddButton(
-  contenItem, // This is the task list object, should have an .id property
+  contenItem, 
   tasksContainerElement,
   addTaskButtonContainerElement,
   projectId, // Project ID

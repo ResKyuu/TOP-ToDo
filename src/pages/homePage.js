@@ -4,6 +4,7 @@ import sideBarDataImport from "../Data/projectData.json"; // Using imported JSON
 import { handleMouseDrag } from "../Logic/mousedrag.js";
 import { createSideBarItem } from "../Logic/sideBarUiRender.js";
 import { handleProjectItemClick } from "../Logic/projectInteraction.js";
+import { deleteProject } from "../Logic/sideBarProjectDel.js"; // Importing the delete function for project items.
 // SVG and image assets for the UI.
 import arrowdown from "../svgs/arrowdown.svg";
 import bell from "../svgs/bell.svg";
@@ -57,8 +58,8 @@ function loadHomePage() {
   sideBarItems.forEach((item) => {
     item.addEventListener("click", () => {
       handleProjectItemClick(item, currentSideBarData, LOCAL_STORAGE_KEY);
-      // Update the active state of sidebar items.
     });
+    deleteProject(LOCAL_STORAGE_KEY, item, currentSideBarData); // Attach delete functionality to each item.
   });
   // Construct the sidebar element with its header, items, and footer.
   const sideBar = createElement("div", {
@@ -205,18 +206,27 @@ function loadHomePage() {
       };
 
       currentSideBarData.push(newProjectData);
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentSideBarData));
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify(currentSideBarData)
+      );
 
       const newProjectItem = createSideBarItem(newProjectData);
       newProjectItem.id = newProjectData.id; // Set the ID for the new project item.
 
       newProjectItem.addEventListener("click", () => {
-        handleProjectItemClick(newProjectItem, currentSideBarData, LOCAL_STORAGE_KEY);
-      });   
+        handleProjectItemClick(
+          newProjectItem,
+          currentSideBarData,
+          LOCAL_STORAGE_KEY
+        );
+      });
 
       const sideBarItemsContainer = sideBar.querySelector(".homeSideBarItems");
       sideBarItemsContainer.appendChild(newProjectItem);
       alert("Project added successfully!");
+      const item = newProjectItem;
+      deleteProject(LOCAL_STORAGE_KEY, item, currentSideBarData); 
     } else if (projectName !== null) {
       alert("Project name cannot be empty.");
     }

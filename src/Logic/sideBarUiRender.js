@@ -1,5 +1,6 @@
 import { createElement } from "../domUtils.js";
 import hashtag from "../svgs/hashtag.svg";
+import trash from "../svgs/trash.svg";
 
 //Builds the sidebar items from the sidebarnav.json Data
 function createSideBarItem(item) {
@@ -13,6 +14,12 @@ function createSideBarItem(item) {
             src: hashtag,
             classList: "homeSidebarItemIcon",
             alt: item.alt,
+          }),
+          createElement("img", {
+            src: trash,
+            classList: "deleteProjectIcon",
+            alt: "Delete Project Icon",
+            attributes: { "data-project-id": item.id },
           }),
         ],
       }),

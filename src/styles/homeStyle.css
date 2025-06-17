@@ -442,3 +442,91 @@ a {
 .projectTaskItem:hover .deleteTaskListIcon {
   display: inline-block;
 }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modalContainer {
+  background: #222;
+  padding: 2rem;
+  border-radius: 10px;
+  min-width: 300px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modalInput {
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #3b3b3b;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px;
+}
+
+.modalInput:focus {
+  background: #2c313a;
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+.modalAddButton,
+.modalCancelButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #0000004d;
+  padding: 5px;
+  border-radius: 10px;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border: none;
+  outline: none;
+  appearance: none;
+  transform: scale(1) translateY(0);
+
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+}
+
+.modalAddButton:hover,
+.modalCancelButton:hover {
+  background-color: #160927be;
+  transform: scale(1.03) translateY(-2px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px;
+}
+
+.blurred {
+  filter: blur(5px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.modalContainer h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}

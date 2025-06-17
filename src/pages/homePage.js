@@ -5,6 +5,8 @@ import { handleMouseDrag } from "../Logic/mousedrag.js";
 import { createSideBarItem } from "../Logic/sideBarUiRender.js";
 import { handleProjectItemClick } from "../Logic/projectInteraction.js";
 import { deleteProject } from "../Logic/sideBarProjectDel.js"; // Importing the delete function for project items.
+import { showNewProjectModal } from "../moduls/newProject.js";
+
 // SVG and image assets for the UI.
 import arrowdown from "../svgs/arrowdown.svg";
 import bell from "../svgs/bell.svg";
@@ -195,40 +197,42 @@ function loadHomePage() {
     ],
   });
 
-  addProjectButton.addEventListener("click", () => {
-    const projectName = prompt("Enter the new project name:");
-    if (projectName && projectName.trim() !== "") {
-      const newProjectData = {
-        name: projectName.trim(),
-        id: `project-${currentSideBarData.length + 1}`, // Generate a new unique ID.
-        alt: `Icon for Project-${currentSideBarData.length + 1}`,
-        contents: [], // Initialize with an empty task list.
-      };
+  addProjectButton.addEventListener("click", async () => {
+    try {
+      const projectName = await showNewProjectModal();
+      if (projectName && projectName.trim() !== "") {
+        const newProjectData = {
+          name: projectName.trim(),
+          id: `project${currentSideBarData.length + 1}`, // Generate a new ID based on the current length.
+          alt: `Icon for ${currentSideBarData.length + 1} project`,
+          contents: [], // Initialize with an empty contents array.
+        };
 
-      currentSideBarData.push(newProjectData);
-      localStorage.setItem(
-        LOCAL_STORAGE_KEY,
-        JSON.stringify(currentSideBarData)
-      );
+        currentSideBarData.push(newProjectData); // Add the new project to the current data.
+        localStorage.setItem(
+          LOCAL_STORAGE_KEY,
+          JSON.stringify(currentSideBarData)
+        ); // Save the updated data to localStorage.
 
-      const newProjectItem = createSideBarItem(newProjectData);
-      newProjectItem.id = newProjectData.id; // Set the ID for the new project item.
+        const newProjectItem = createSideBarItem(newProjectData);
+        newProjectItem.id = newProjectData.id; // Set the ID for the new project
 
-      newProjectItem.addEventListener("click", () => {
-        handleProjectItemClick(
-          newProjectItem,
-          currentSideBarData,
-          LOCAL_STORAGE_KEY
-        );
-      });
+        newProjectItem.addEventListener("click", () => {
+          handleProjectItemClick(
+            newProjectItem,
+            currentSideBarData,
+            LOCAL_STORAGE_KEY
+          );
+        });
 
-      const sideBarItemsContainer = sideBar.querySelector(".homeSideBarItems");
-      sideBarItemsContainer.appendChild(newProjectItem);
-      alert("Project added successfully!");
-      const item = newProjectItem;
-      deleteProject(LOCAL_STORAGE_KEY, item, currentSideBarData); 
-    } else if (projectName !== null) {
-      alert("Project name cannot be empty.");
+        const sideBarItemsContainer =
+          sideBar.querySelector(".homeSideBarItems");
+        sideBarItemsContainer.appendChild(newProjectItem); // Append the new project item to the
+        const item = newProjectItem;
+        deleteProject(LOCAL_STORAGE_KEY, item, currentSideBarData); // Attach delete functionality to the new item.
+      }
+    } catch (error) {
+      console.error("Adding Project Process was canceled", error);
     }
   });
 

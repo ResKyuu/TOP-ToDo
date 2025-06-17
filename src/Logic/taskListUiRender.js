@@ -1,5 +1,6 @@
 import { createElement } from "../domUtils.js";
 import { renderTasksaAndAddButton } from "./taskUiRender.js"; // Assuming taskUiRender.js is in the same Logic folder
+import { showNewTaskListModal } from "../moduls/newTaskList.js"; // Importing the new task list title from the modal
 import plus from "../svgs/plus.svg"; // Importing the plus icon for the "Add Task List" button
 import trashIcon from "../svgs/trash.svg"; // Importing the trash icon for task deletion
 
@@ -135,35 +136,39 @@ export function renderProjectContents(
     ],
   });
 
-  addTaskListCard.addEventListener("click", () => {
-    const newTaskListTitle = prompt("Enter title for the new Task List:");
-    if (newTaskListTitle && newTaskListTitle.trim() !== "") {
-      if (!projectData.contents) {
-        projectData.contents = [];
-      }
-      const newContentItem = {
-        id: `tl-${projectId}-${Date.now()}-${Math.random()
-          .toString(36)
-          .substr(2, 9)}`, // Generate a more unique ID
-        title: newTaskListTitle.trim(),
-        tasks: [],
-      };
-      projectData.contents.push(newContentItem);
+  addTaskListCard.addEventListener("click", async () => {
+    try {
+      const newTaskListTitle = await showNewTaskListModal();
+      if (newTaskListTitle && newTaskListTitle.trim() !== "") {
+        if (!projectData.contents) {
+          projectData.contents = [];
+        }
+        const newContentItem = {
+          id: `tl-${projectId}-${Date.now()}-${Math.random()
+            .toString(36)
+            .substr(2, 9)}`, // Generate a more unique ID
+          title: newTaskListTitle.trim(),
+          tasks: [],
+        };
+        projectData.contents.push(newContentItem);
 
-      // Call the callback to notify that data has changed (for potential saving)
-      if (onTaskListAdded) {
-        onTaskListAdded(fullSideBarData);
-      }
+        // Call the callback to notify that data has changed (for potential saving)
+        if (onTaskListAdded) {
+          onTaskListAdded(fullSideBarData);
+        }
 
-      renderProjectContents(
-        projectData,
-        displayContainer,
-        projectId,
-        fullSideBarData,
-        onTaskListAdded
-      );
-    } else if (newTaskListTitle !== null) {
-      alert("Task List title cannot be empty.");
+        renderProjectContents(
+          projectData,
+          displayContainer,
+          projectId,
+          fullSideBarData,
+          onTaskListAdded
+        );
+      } else if (newTaskListTitle !== null) {
+        alert("Task List title cannot be empty.");
+      }
+    } catch (error) {
+      console.error("Adding new Task List Process was canceled", error);
     }
   });
   displayContainer.appendChild(addTaskListCard);

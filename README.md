@@ -36,7 +36,7 @@ This project was created as part of [The Odin Project](https://www.theodinprojec
 ## 🖥️ Demo
 
 > **Try it live:**  
-> [https://reskyuu.github.io/TOP-ToDo/](https://your-github-username.github.io/TOP-ToDo/)
+> [https://reskyuu.github.io/TOP-ToDo/](https://reskyuu.github.io/TOP-ToDo/)
 
 ---
 
@@ -114,6 +114,6 @@ It demonstrates modular JavaScript, DOM manipulation, state management, and mode
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and free to use.
 
 ---

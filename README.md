@@ -36,7 +36,7 @@ This project was created as part of [The Odin Project](https://www.theodinprojec
 ## 🖥️ Demo
 
 > **Try it live:**  
-> [https://reskyuu.github.io/TOP-ToDo/](https://your-github-username.github.io/TOP-ToDo/)
+> [https://reskyuu.github.io/TOP-ToDo/](https://reskyuu.github.io/TOP-ToDo/)
 
 ---
 

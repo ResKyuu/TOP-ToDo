@@ -1,6 +1,8 @@
 import { createElement } from "../domUtils.js";
 import trashIcon from "../svgs/trash.svg"; // Importing the trash icon for task deletion
 import { showNewTaskModal } from "../modals/newTask.js"; // Importing the modal for adding new tasks
+import edit from "../svgs/edit.svg"; // Importing the edit icon for task list editing
+import { showEditTaskModal } from "../modals/editTask.js"; // Importing the modal for editing task lists
 
 function _renderTasksOnly(
   contenItem,
@@ -16,6 +18,12 @@ function _renderTasksOnly(
         classList: "deleteTaskIcon",
         alt: "Delete Task Icon",
         attributes: { "data-task-index": taskSpecificIndex }, // Store the index for deletion
+      });
+      const editIconEl = createElement("img", {
+        src: edit,
+        classList: ["editTaskIcon", "deleteTaskIcon"],
+        alt: "Edit Task Icon",
+        attributes: { "data-task-index": taskSpecificIndex }, // Store the index for editing
       });
 
       const taskElement = createElement("div", {
@@ -35,7 +43,7 @@ function _renderTasksOnly(
               }),
               createElement("div", {
                 classList: "projectTaskHeaderIconContainer",
-                children: [deleteIconEl],
+                children: [editIconEl, deleteIconEl],
               }),
             ],
           }),
@@ -64,6 +72,34 @@ function _renderTasksOnly(
           tasksDisplayContainerElement,
           localStorageKey
         ); // Re-render the tasks
+      });
+
+      editIconEl.addEventListener("click", async (event) => {
+        event.stopPropagation();
+        const taskIndexToEdit = parseInt(
+          event.target.getAttribute("data-task-index")
+        );
+        const taskToEdit = contenItem.tasks[taskIndexToEdit];
+        try {
+          const { title, description } = await showEditTaskModal(
+            taskToEdit.title,
+            taskToEdit.description
+          );
+          taskToEdit.title = title;
+          taskToEdit.description = description;
+          localStorage.setItem(
+            localStorageKey,
+            JSON.stringify(contenItem.tasks)
+          );
+          _renderTasksOnly(
+            contenItem,
+            tasksDisplayContainerElement,
+            localStorageKey
+          );
+        } catch {
+          console.error("Editing task was canceled or failed", error);
+          return;
+        }
       });
 
       tasksDisplayContainerElement.appendChild(taskElement);

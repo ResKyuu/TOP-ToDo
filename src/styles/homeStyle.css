@@ -180,7 +180,7 @@ img {
 }
 
 .editProjectIcon {
-   padding: 1px;
+  padding: 1px;
   width: 22px;
   align-items: flex-start;
   max-height: 22px;
@@ -475,13 +475,13 @@ a {
   display: inline-block;
 }
 
-.projectTaskItemHeaderIconContainer {
+.projectTaskItemHeaderIconContainer,
+.projectTaskHeaderIconContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-
 
 .modalOverlay {
   position: fixed;

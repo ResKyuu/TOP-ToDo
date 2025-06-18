@@ -470,9 +470,18 @@ a {
   margin-top: 2px;
 }
 
-.projectTaskItem:hover .deleteTaskListIcon {
+.projectTaskItem:hover .deleteTaskListIcon,
+.projectTaskItem:hover .editTaskListIcon {
   display: inline-block;
 }
+
+.projectTaskItemHeaderIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 
 .modalOverlay {
   position: fixed;

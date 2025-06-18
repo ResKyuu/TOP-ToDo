@@ -232,6 +232,7 @@ function loadHomePage() {
         sideBarItemsContainer.appendChild(newProjectItem); // Append the new project item to the
         const item = newProjectItem;
         deleteProject(LOCAL_STORAGE_KEY, item, currentSideBarData); // Attach delete functionality to the new item.
+        editProject(LOCAL_STORAGE_KEY, currentSideBarData, item); // Attach edit functionality to the new item.
       }
     } catch (error) {
       console.error("Adding Project Process was canceled", error);

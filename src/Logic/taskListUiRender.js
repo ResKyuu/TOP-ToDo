@@ -2,8 +2,10 @@ import { createElement } from "../domUtils.js";
 import { renderTasksaAndAddButton } from "./taskUiRender.js";
 import { showNewTaskListModal } from "../modals/newTaskList.js";
 import { showDeleteTaskListModal } from "../modals/deleteTaskList.js";
+import { showEditTaskListModal } from "../modals/editTaskList.js";
 import plus from "../svgs/plus.svg";
 import trashIcon from "../svgs/trash.svg";
+import edit from "../svgs/edit.svg";
 
 export function renderProjectContents(
   projectData,
@@ -20,6 +22,11 @@ export function renderProjectContents(
         src: trashIcon,
         classList: ["deleteTaskListIcon", "deleteTaskIcon"],
         alt: "Delete Task Icon",
+      });
+      const editIconEl = createElement("img", {
+        src: edit,
+        classList: ["editTaskListIcon", "deleteTaskIcon"],
+        alt: "Edit Task Icon",
       });
 
       if (!contentItem.id) {
@@ -54,7 +61,7 @@ export function renderProjectContents(
               }),
               createElement("div", {
                 classList: "projectTaskItemHeaderIconContainer",
-                children: [deleteIconEl],
+                children: [editIconEl, deleteIconEl],
               }),
             ],
           }),
@@ -97,6 +104,28 @@ export function renderProjectContents(
           }
         } catch (err) {
           console.log("Task List deletion was canceled.");
+        }
+      });
+
+      // Add edit event listener
+      editIconEl.addEventListener("click", async () => {
+        try {
+          const newTitle = await showEditTaskListModal(contentItem.title);
+          if (newTitle && newTitle !== contentItem.title) {
+            contentItem.title = newTitle;
+            if (onTaskListAdded) {
+              onTaskListAdded(fullSideBarData);
+            }
+            renderProjectContents(
+              projectData,
+              displayContainer,
+              projectId,
+              fullSideBarData,
+              onTaskListAdded
+            );
+          }
+        } catch {
+          // Modal cancelled
         }
       });
 

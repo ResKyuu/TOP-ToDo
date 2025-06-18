@@ -620,3 +620,39 @@ a {
 .modalButtonContainer > .modalCancelButton {
   color: var(--task-item-overdue-color) !important;
 }
+
+.modalPrioritySelect {
+  border: none;
+  outline: none;
+  background: #3b3b3b;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px, rgba(0, 0, 0, 0.14) 0px 3px 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  position: relative;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2em;
+  cursor: pointer;
+}
+
+.modalPrioritySelect:focus {
+  background: #2c313a;
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.modalContainer label[for="priority-select"] {
+  color: var(--primary-color);
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+
+  display: block;
+}

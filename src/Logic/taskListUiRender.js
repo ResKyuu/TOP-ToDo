@@ -1,8 +1,8 @@
 import { createElement } from "../domUtils.js";
 import { renderTasksaAndAddButton } from "./taskUiRender.js";
-import { showNewTaskListModal } from "../modals/newTaskList.js";
 import { showDeleteTaskListModal } from "../modals/deleteTaskList.js";
 import { showEditTaskListModal } from "../modals/editTaskList.js";
+import { showNewTaskListModal } from "../modals/newTaskList.js";
 import plus from "../svgs/plus.svg";
 import trashIcon from "../svgs/trash.svg";
 import edit from "../svgs/edit.svg";
@@ -18,6 +18,15 @@ export function renderProjectContents(
 
   if (projectData.contents && Array.isArray(projectData.contents)) {
     projectData.contents.forEach((contentItem) => {
+      // Determine border color based on priority
+      let borderColorVar = "--task-item-default-color";
+      if (contentItem.priority === "pending")
+        borderColorVar = "--task-item-pending-color";
+      else if (contentItem.priority === "completed")
+        borderColorVar = "--task-item-completed-color";
+      else if (contentItem.priority === "overdue")
+        borderColorVar = "--task-item-overdue-color";
+
       const deleteIconEl = createElement("img", {
         src: trashIcon,
         classList: ["deleteTaskListIcon", "deleteTaskIcon"],
@@ -46,6 +55,8 @@ export function renderProjectContents(
 
       const taskListElement = createElement("div", {
         classList: "projectTaskItem",
+        // Set border color using inline style and CSS variable
+        style: `border-left: 5px solid var(${borderColorVar}) !important;`,
         children: [
           createElement("div", {
             classList: "projectTaskItemHeader",
@@ -107,12 +118,20 @@ export function renderProjectContents(
         }
       });
 
-      // Add edit event listener
+      // Edit event listener
       editIconEl.addEventListener("click", async () => {
         try {
-          const newTitle = await showEditTaskListModal(contentItem.title);
-          if (newTitle && newTitle !== contentItem.title) {
+          const { title: newTitle, priority: newPriority } =
+            await showEditTaskListModal(
+              contentItem.title,
+              contentItem.priority || "default"
+            );
+          if (
+            (newTitle && newTitle !== contentItem.title) ||
+            (newPriority && newPriority !== contentItem.priority)
+          ) {
             contentItem.title = newTitle;
+            contentItem.priority = newPriority;
             if (onTaskListAdded) {
               onTaskListAdded(fullSideBarData);
             }
@@ -139,6 +158,7 @@ export function renderProjectContents(
     });
   }
 
+  // Add Task List Card
   const addTaskListCard = createElement("div", {
     classList: [
       "projectTaskItem",
@@ -165,7 +185,8 @@ export function renderProjectContents(
 
   addTaskListCard.addEventListener("click", async () => {
     try {
-      const newTaskListTitle = await showNewTaskListModal();
+      const { title: newTaskListTitle, priority: newPriority } =
+        await showNewTaskListModal();
       if (newTaskListTitle && newTaskListTitle.trim() !== "") {
         if (!projectData.contents) {
           projectData.contents = [];
@@ -176,6 +197,7 @@ export function renderProjectContents(
             .substr(2, 9)}`,
           title: newTaskListTitle.trim(),
           tasks: [],
+          priority: newPriority || "default",
         };
         projectData.contents.push(newContentItem);
 

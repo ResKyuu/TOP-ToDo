@@ -58,5 +58,10 @@ export function createElement(tag, options = {}) {
     });
   }
 
+  // Add this block to support inline styles
+  if (options.style) {
+    el.style.cssText = options.style;
+  }
+
   return el;
 }

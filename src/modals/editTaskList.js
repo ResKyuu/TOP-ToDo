@@ -1,6 +1,9 @@
 import { createElement } from "../domUtils.js";
 
-export function showEditTaskListModal(currentTitle) {
+export function showEditTaskListModal(
+  currentTitle,
+  currentPriority = "default"
+) {
   return new Promise((resolve, reject) => {
     const sideBar = document.getElementById("sideBar");
     const mainContent = document.getElementById("mainContent");
@@ -13,11 +16,30 @@ export function showEditTaskListModal(currentTitle) {
     const title = createElement("h2", { textContent: "Edit Task List Title" });
     const input = createElement("input", {
       type: "text",
-      placeholder: "Project Name",
+      placeholder: "Task List Name",
       classList: "modalInput",
       value: currentTitle,
       maxLength: 16,
     });
+
+    // Priority selector
+    const priorityLabel = createElement("label", {
+      textContent: "Priority:",
+      attributes: { for: "priority-select" },
+    });
+    const prioritySelect = createElement("select", {
+      classList: "modalPrioritySelect",
+      attributes: { id: "priority-select" },
+    });
+    ["default", "pending", "completed", "overdue"].forEach((state) => {
+      const option = createElement("option", {
+        value: state,
+        textContent: state.charAt(0).toUpperCase() + state.slice(1),
+      });
+      if (state === currentPriority) option.selected = true;
+      prioritySelect.appendChild(option);
+    });
+
     const validationMsg = createElement("div", {
       classList: "modalValidationMsg",
       textContent: "",
@@ -34,6 +56,8 @@ export function showEditTaskListModal(currentTitle) {
     modal.appendChild(title);
     modal.appendChild(input);
     modal.appendChild(validationMsg);
+    modal.appendChild(priorityLabel);
+    modal.appendChild(prioritySelect);
     modal.appendChild(saveButton);
     modal.appendChild(cancelButton);
     overlay.appendChild(modal);
@@ -50,7 +74,10 @@ export function showEditTaskListModal(currentTitle) {
     saveButton.addEventListener("click", () => {
       if (input.value.trim() !== "") {
         cleanup();
-        resolve(input.value.trim());
+        resolve({
+          title: input.value.trim(),
+          priority: prioritySelect.value,
+        });
       } else {
         validationMsg.textContent = "Task List Name cannot be empty.";
         validationMsg.style.color = "red";

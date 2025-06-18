@@ -97,7 +97,7 @@ function _renderTasksOnly(
             localStorageKey
           );
         } catch {
-          console.error("Editing task was canceled or failed", error);
+          console.error("Editing task was canceled or failed");
           return;
         }
       });

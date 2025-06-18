@@ -20,6 +20,25 @@ export function showNewTaskListModal() {
       placeholder: "Task List Name",
       classList: "modalInput",
     });
+
+    // Priority selector
+    const priorityLabel = createElement("label", {
+      textContent: "Priority:",
+      attributes: { for: "priority-select" },
+      style: "margin-top: 10px;",
+    });
+    const prioritySelect = createElement("select", {
+      classList: "modalPrioritySelect",
+      attributes: { id: "priority-select" },
+    });
+    ["default", "pending", "completed", "overdue"].forEach((state) => {
+      const option = createElement("option", {
+        value: state,
+        textContent: state.charAt(0).toUpperCase() + state.slice(1),
+      });
+      prioritySelect.appendChild(option);
+    });
+
     // Validation message element
     const validationMsg = createElement("div", {
       classList: "modalValidationMsg",
@@ -36,6 +55,8 @@ export function showNewTaskListModal() {
 
     modal.appendChild(title);
     modal.appendChild(input);
+    modal.appendChild(priorityLabel);
+    modal.appendChild(prioritySelect);
     modal.appendChild(validationMsg);
     modal.appendChild(addButton);
     modal.appendChild(cancelButton);
@@ -55,7 +76,10 @@ export function showNewTaskListModal() {
     addButton.addEventListener("click", () => {
       if (input.value.trim() !== "") {
         cleanup();
-        resolve(input.value.trim());
+        resolve({
+          title: input.value.trim(),
+          priority: prioritySelect.value,
+        });
       } else {
         validationMsg.textContent = "Task List Name cannot be empty.";
         validationMsg.style.color = "red";

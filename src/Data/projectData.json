@@ -8,114 +8,40 @@
         "title": "Task List",
         "tasks": [
           {
-            "title": "Task 1",
-            "description": "On Hover show button to delete this task list."
+            "title": "Delete a Project",
+            "description": "Try deleting this project using the delete button (usually appears on hover)."
           },
           {
-            "title": "Task 2",
-            "description": "On Hover show button to delete this task"
+            "title": "Delete a Task List",
+            "description": "Delete a task list from this project to see how it works."
           },
           {
-            "title": "Task 3",
-            "description": "On Hover show button to edit this task"
+            "title": "Delete a Task",
+            "description": "Remove a task from the list using the delete button."
           },
           {
-            "title": "Task 7",
-            "description": "On Hover show button to delete this project"
+            "title": "Edit a Project",
+            "description": "Edit the project name or details to personalize it."
           },
           {
-            "title": "Task 8",
-            "description": "On Hover show button to edit this project"
+            "title": "Edit a Task List",
+            "description": "Change the title of a task list to organize your tasks."
           },
           {
-            "title": "Task 9",
-            "description": "Placeholder for a task that has no description"
-          }
-        ]
-      },
-      {
-        "id": "tl-getstarted-2",
-        "title": "Task List",
-        "tasks": [
-          {
-            "title": "Task 1",
-            "description": "This is the first task in the Get Started section."
+            "title": "Edit a Task",
+            "description": "Update a task's title or description."
           },
           {
-            "title": "Task 2",
-            "description": "This is the fifth task in the Get Started section."
-          }
-        ]
-      },
-      {
-        "id": "tl-getstarted-3",
-        "title": "Task List",
-        "tasks": [
-          {
-            "title": "Task 1",
-            "description": "This is the first task in the Get Started section."
+            "title": "Add a New Project",
+            "description": "Create a new project to start organizing your tasks."
           },
           {
-            "title": "Task 2",
-            "description": "This is the second task in the Get Started section."
+            "title": "Add a New Task List",
+            "description": "Add a new task list to any project."
           },
           {
-            "title": "Task 3",
-            "description": "This is the third task in the Get Started section."
-          }
-        ]
-      },
-      {
-        "id": "tl-getstarted-4",
-        "title": "Task List",
-        "tasks": [
-          {
-            "title": "Task 1",
-            "description": "This is the first task in the Get Started section."
-          },
-          {
-            "title": "Task 2",
-            "description": "This is the second task in the Get Started section."
-          },
-          {
-            "title": "Task 3",
-            "description": "This is the third task in the Get Started section."
-          }
-        ]
-      },
-      {
-        "id": "tl-getstarted-5",
-        "title": "Task List",
-        "tasks": [
-          {
-            "title": "Task 1",
-            "description": "This is the first task in the Get Started section."
-          },
-          {
-            "title": "Task 2",
-            "description": "This is the second task in the Get Started section."
-          },
-          {
-            "title": "Task 3",
-            "description": "This is the third task in the Get Started section."
-          }
-        ]
-      },
-      {
-        "id": "tl-getstarted-6",
-        "title": "Task List",
-        "tasks": [
-          {
-            "title": "Task 1",
-            "description": "This is the first task in the Get Started section."
-          },
-          {
-            "title": "Task 2",
-            "description": "This is the second task in the Get Started section."
-          },
-          {
-            "title": "Task 3",
-            "description": "This is the third task in the Get Started section."
+            "title": "Add a New Task",
+            "description": "Add a new task to any task list."
           }
         ]
       }

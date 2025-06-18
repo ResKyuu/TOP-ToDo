@@ -6,6 +6,7 @@ import { createSideBarItem } from "../Logic/sideBarUiRender.js";
 import { handleProjectItemClick } from "../Logic/projectInteraction.js";
 import { deleteProject } from "../Logic/sideBarProjectDel.js"; // Importing the delete function for project items.
 import { showNewProjectModal } from "../modals/newProject.js";
+import { editProject } from "../Logic/projectEdit.js";
 
 // SVG and image assets for the UI.
 import arrowdown from "../svgs/arrowdown.svg";
@@ -62,6 +63,7 @@ function loadHomePage() {
       handleProjectItemClick(item, currentSideBarData, LOCAL_STORAGE_KEY);
     });
     deleteProject(LOCAL_STORAGE_KEY, item, currentSideBarData); // Attach delete functionality to each item.
+    editProject(LOCAL_STORAGE_KEY, currentSideBarData, item); // Attach edit functionality to each item.
   });
   // Construct the sidebar element with its header, items, and footer.
   const sideBar = createElement("div", {

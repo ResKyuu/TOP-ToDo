@@ -132,8 +132,18 @@ img {
   display: flex;
   flex-grow: 1;
   justify-content: center;
+  align-items: center;
   color: var(--primary-color);
   font-size: 1.05rem;
+}
+
+.homeSidebarItemIconContainerLeft,
+.homeSidebarItemIconContainerRight {
+  display: flex;
+}
+
+.homeSidebarItemIconContainerRight {
+  gap: 7px;
 }
 
 .homeSideBarItem:hover {
@@ -156,7 +166,7 @@ img {
   cursor: pointer;
   background-color: #ffffff00;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 0.5px 7px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0.5px 5px;
   display: none;
 
   transform: scale(1) translateY(0);
@@ -166,6 +176,27 @@ img {
 }
 
 .homeSideBarItem:hover .deleteProjectIcon {
+  display: inline-block;
+}
+
+.editProjectIcon {
+   padding: 1px;
+  width: 22px;
+  align-items: flex-start;
+  max-height: 22px;
+  cursor: pointer;
+  background-color: #ffffff00;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 0.5px 5px;
+  display: none;
+
+  transform: scale(1) translateY(0);
+
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+}
+
+.homeSideBarItem:hover .editProjectIcon {
   display: inline-block;
 }
 
